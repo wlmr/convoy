@@ -3,3 +3,7 @@ devel/**
 build/CMakeCache.txt
 build/*.txt
 build/*.cmake
+army_ws/build/**
+army_ws/devel/**
+airforce_ws/build/**
+airforce_ws/devel/**

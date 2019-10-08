@@ -1,8 +1,0 @@
-prefix=/home/robproj/code/convoy/airforce_ws/install
-
-Name: crazyflie_cpp
-Description: Description of crazyflie_cpp
-Version: 0.0.1
-Cflags: -I/home/robproj/code/convoy/airforce_ws/install/include
-Libs: -L/home/robproj/code/convoy/airforce_ws/install/lib -lcrazyflie_cpp
-Requires: 
