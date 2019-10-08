@@ -1,2 +1,5 @@
 build/**
 devel/**
+build/CMakeCache.txt
+build/*.txt
+build/*.cmake
