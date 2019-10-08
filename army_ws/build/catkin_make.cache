@@ -1,0 +1,2 @@
+crazyflie_ros/crazyflie:crazyflie_ros/crazyflie_controller:crazyflie_ros/crazyflie_cpp:crazyflie_ros/crazyflie_demo:crazyflie_ros/crazyflie_description:crazyflie_ros/crazyflie_driver:crazyflie_ros/crazyflie_tools:vicon_bridge
+-DCATKIN_DEVEL_PREFIX=/home/robproj/code/convoy/airforce_ws/devel -DCMAKE_INSTALL_PREFIX=/home/robproj/code/convoy/airforce_ws/install -G Unix Makefiles
