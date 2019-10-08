@@ -1,2 +1,0 @@
-
--DCATKIN_DEVEL_PREFIX=/home/robproj/code/convoy/devel -DCMAKE_INSTALL_PREFIX=/home/robproj/code/convoy/install -G Unix Makefiles
