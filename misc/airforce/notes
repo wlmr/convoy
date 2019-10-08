@@ -1,0 +1,15 @@
+http://act.usc.edu/publications/Hoenig_Springer_ROS2017.pdf
+
+in catkin_ws:
+	git clone https://github.com/whoenig/crazyflie_ros
+
+in ~/packages 
+	git clone https://github.com/bitcraze/crazyflie-clients-python.git
+	sudo apt-get install python3 python3-pip python3-pyqt5 python3-pyqt5.qtsvg
+	from source folder in flie-clients-python
+		pip3 install -e .
+	then run
+		python3 bin/cfclient
+		connect xbox controller and antenna
+
+
