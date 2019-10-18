@@ -3,8 +3,6 @@
 #include "geometry_msgs/Twist.h"
 
 
-#include <sstream>
-
 const uint16_t MANUAL_MODE  = 0x90;
 const uint16_t RANDOM_MODE  = 0x91;
 const uint16_t PARK_MODE    = 0x100;
@@ -57,12 +55,19 @@ int main(int argc, char **argv)
   ros::Publisher mode_pub = n.advertise<std_msgs::UInt16>("cmd_mode", 5);
   ros::Rate loop_rate(1);
 
+  for(int i = 0; i < 10 && mode_pub.getNumSubscribers() == 0; ++i)
+  {
+    ROS_INFO("Waiting for subscribers...");
+    sleep(1);
+  }
+
   std_msgs::UInt16 manual_message;
   manual_message.data = MANUAL_MODE;
 
   mode_pub.publish(manual_message);
 
   geometry_msgs::Twist forwards;
+  forwards.angular.z = 1;
   forwards.linear.x = 0.3;
 
   geometry_msgs::Twist stop;
@@ -71,7 +76,7 @@ int main(int argc, char **argv)
   backwards.linear.x = -0.3;
   backwards.angular.z = 1;
 
-  geometry_msgs::Twist twists[3] = {forwards, stop, backwards};
+  geometry_msgs::Twist twists[2] = {forwards, backwards};
 
 
 
@@ -82,7 +87,7 @@ int main(int argc, char **argv)
       ROS_ERROR("An error has occured in the loop.");
       break;
     }
-    vel_pub.publish(twists[i % 3]);
+    vel_pub.publish(twists[i % 2]);
 
     ros::spinOnce();
     loop_rate.sleep();

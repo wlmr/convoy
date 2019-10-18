@@ -47,7 +47,7 @@ STOP_LOOP   = 0x17
 def set_mode(m):
     new_mode = UInt16()
     new_mode.data = m
-    mode_pub.publish(m)
+    mode_pub.publish(new_mode)
 
 
 def set_movement(m = None):
@@ -58,18 +58,45 @@ def set_movement(m = None):
     vel_pub.publish(t)
 
 
+def manual_mode():
+  from subprocess import Popen, PIPE
+  command = "rostopic pub -1 /cmd_mode std_msgs/UInt16 -- '144'".split()
+  process = Popen(command, stdout=PIPE, stderr=PIPE)
+  stdout, stderr = process.communicate()
+  #print(stdout)
+
+def random_mode():
+  from subprocess import Popen, PIPE
+  command = "rostopic pub -1 /cmd_mode std_msgs/UInt16 -- '145'".split()
+  process = Popen(command, stdout=PIPE, stderr=PIPE)
+  stdout, stderr = process.communicate()
+  #print(stdout)
+
+
 if __name__=="__main__":
     rospy.init_node('moving_node')
-    vel_pub = rospy.Publisher('cmd_vel', Twist, queue_size = 1)
-    mode_pub = rospy.Publisher('cmd_mode', UInt16, queue_size = 1)
-    mode_pub.publish(START_LOOP)
+    vel_pub = rospy.Publisher('cmd_vel', Twist, queue_size = 10)
+    mode_pub = rospy.Publisher('cmd_mode', UInt16, queue_size = 10)
+    #set_mode(START_LOOP)
     x = 1
     y = 1
     status = 0
     speed = 1
     twist = Twist()
     print("Setting manual mode")
+    retries = 0
+
+    while mode_pub.get_num_connections() < 1:
+      print("Number of subscribers: %s" % mode_pub.get_num_connections())
+      print("Waiting for subscribers")
+      sleep(1)
+      if retries > 10:
+        break
+      retries += 1
+
     set_mode(MANUAL_MODE)
+
+    #manual_mode()
     try:    
         sleep(2)
         print("Moving forward-left")
@@ -83,6 +110,8 @@ if __name__=="__main__":
     finally:
         print("Stopping...")
         set_movement()
-        set_mode(STOP_LOOP)
+        #random_mode()
+        #set_mode(STOP_LOOP)
+        set_mode(RANDOM_MODE)
 
 
