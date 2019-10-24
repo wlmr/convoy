@@ -97,10 +97,13 @@ int main(int argc, char **argv)
   std_msgs::UInt16 manual_message;
   manual_message.data = MANUAL_MODE;
 
+
+  cout << "Entering manual mode." << endl;
+
   mode_pub.publish(manual_message);
 
 
-  cout << "Star-shape routine" << endl;
+  cout << "Next: Star-shape routine" << endl;
   wait_for_enter();
 
   draw_star();
@@ -109,7 +112,7 @@ int main(int argc, char **argv)
   
   vel_pub.publish(stop);
 
-  cout << "Star-shape routine" << endl;
+  cout << "Next: Circle routine" << endl;
   wait_for_enter();
 
   draw_circle();
